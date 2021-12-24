@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:first_app/pages/login_page.dart';
 import 'package:flutter/material.dart';
 
@@ -23,7 +21,10 @@ class HomePage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.change_circle),
-        onPressed: null,
+        onPressed: () {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => LoginPage()));
+        },
       ),
       drawer: Drawer(),
     );

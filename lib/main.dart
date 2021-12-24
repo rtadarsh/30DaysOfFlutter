@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'pages/home_page.dart';
 import 'pages/login_page.dart';
 
@@ -7,22 +8,20 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  @override // you need to override previously written build method that returns a widget
+  @override
   Widget build(BuildContext context) {
-    // context is a piece of info telling about the position of each widget in the hierarchy tree
     return MaterialApp(
-      // home: HomePage(), // this is the initial page of whole app
-      themeMode: ThemeMode.dark,
+      themeMode: ThemeMode.light,
       theme: ThemeData(
-        primarySwatch: Colors.red,
-      ),
+          primarySwatch: Colors.deepPurple,
+          fontFamily: GoogleFonts.merriweather().fontFamily),
       darkTheme: ThemeData(
+        brightness: Brightness.dark,
         primarySwatch: Colors.purple,
       ),
       initialRoute: "/home",
       routes: {
-        "/": (context) =>
-            LoginPage(), // this can only be included if home property is not specified. This is the default route unless otherwise specified by initialRoute
+        "/": (context) => LoginPage(),
         "/home": (context) => HomePage(),
         "/login": (context) => LoginPage(),
       },
