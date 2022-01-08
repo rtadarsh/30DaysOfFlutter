@@ -8,7 +8,7 @@ class LoginPage extends StatelessWidget {
     return Material(
       color: Colors.white,
       child: Center(
-          child: Column(
+        child: Column(
         children: [
           Image.asset("./assets/images/login_image.png"),
           SizedBox(
