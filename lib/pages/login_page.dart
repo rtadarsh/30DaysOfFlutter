@@ -4,7 +4,14 @@ import '../utils/routes.dart';
 
 // to add images and icons, create folder assets/images and assets/icons and uncomment assets and 1 following line in pubspec.yaml
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  String name = "";
+  bool buttonPressed = false;
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -18,7 +25,7 @@ class LoginPage extends StatelessWidget {
               height: 100,
             ),
             Text(
-              "Welcome",
+              "Welcome $name",
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
             ),
             SizedBox(
@@ -34,6 +41,11 @@ class LoginPage extends StatelessWidget {
                       labelText: "Username",
                       hintText: "Enter Username",
                     ),
+                    onChanged: (val) {
+                      setState(() {
+                        name = val;
+                      });
+                    },
                   ),
                   TextFormField(
                     decoration: InputDecoration(
@@ -45,18 +57,52 @@ class LoginPage extends StatelessWidget {
                   SizedBox(
                     height: 20,
                   ),
-                  ElevatedButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, MyRoutes.homeRoute);
-                      },
-                      child: Text('Login'),
-                      style: ButtonStyle(
-                          foregroundColor:
-                              MaterialStateProperty.all(Colors.white),
-                          backgroundColor:
-                              MaterialStateProperty.all(Colors.deepPurple),
-                          minimumSize:
-                              MaterialStateProperty.all(Size(120, 40))))
+                  // custom button using container
+                  InkWell(
+                    onTap: () async {
+                      setState(() {
+                        buttonPressed = true;
+                      });
+                      await Future.delayed(Duration(seconds: 1));
+                      Navigator.pushNamed(context, MyRoutes.homeRoute);
+                    },
+                    child: AnimatedContainer(
+                      duration: Duration(milliseconds: 500),
+                      height: 50,
+                      width: buttonPressed ? 50 : 150,
+                      decoration: BoxDecoration(
+                          color: Colors.deepPurple,
+                          borderRadius:
+                              BorderRadius.circular(buttonPressed ? 50 : 6)),
+                      child: buttonPressed
+                          ? Icon(
+                              Icons.done,
+                              color: Colors.white,
+                            )
+                          : Text(
+                              "Login",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                              ),
+                            ),
+                      alignment: Alignment.center,
+                    ),
+                  ),
+
+                  // ElevatedButton(
+                  // onPressed: () {
+                  //   Navigator.pushNamed(context, MyRoutes.homeRoute);
+                  // },
+                  // child: Text('Login'),
+                  // style: ButtonStyle(
+                  //     foregroundColor:
+                  //         MaterialStateProperty.all(Colors.white),
+                  //     backgroundColor:
+                  //         MaterialStateProperty.all(Colors.deepPurple),
+                  //     minimumSize:
+                  //         MaterialStateProperty.all(Size(120, 40))))
                 ],
               ),
             ),
@@ -66,21 +112,7 @@ class LoginPage extends StatelessWidget {
             )
           ],
         ),
-      )
-          // child: Text(
-          //   "Login Page",
-          //   style: TextStyle(
-          //     color: Colors.deepPurple,
-          //     fontSize: 22,
-          //     fontWeight: FontWeight.bold,
-          //     fontFamily: "monospace",
-          //   ),
-          // ),
-          ),
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: () => Navigator.pop(context),
-      //   child: Icon(Icons.change_circle_outlined),
-      // ),
+      )),
     );
   }
 }
